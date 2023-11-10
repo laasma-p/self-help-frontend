@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
+  const navigate = useNavigate();
 
   const enteredEmailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -13,13 +15,30 @@ const Login = () => {
     setEnteredPassword(event.target.value);
   };
 
+  const submitHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:3000/login", {
+        email: enteredEmail,
+        password: enteredPassword,
+      });
+
+      onLogin(true);
+
+      navigate("/");
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-neutral-700 text-neutral-700 dark:text-gray-100 transition-colors duration-300">
       <h1 className="text-3xl md:text-4xl text-center">
         Log in to your account
       </h1>
       <div className="mt-10 md:mx-auto md:w-full sm:max-w-sm">
-        <form>
+        <form onSubmit={submitHandler}>
           <label
             htmlFor="email"
             className="block text-lg font-medium mb-2 mt-2"
