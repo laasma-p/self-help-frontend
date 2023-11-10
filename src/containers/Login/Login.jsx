@@ -24,6 +24,9 @@ const Login = ({ onLogin }) => {
         password: enteredPassword,
       });
 
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId);
+
       onLogin(true);
 
       navigate("/");
