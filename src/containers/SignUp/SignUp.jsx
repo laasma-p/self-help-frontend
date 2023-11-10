@@ -1,4 +1,27 @@
+import { useState } from "react";
+
 const SignUp = () => {
+  const [enteredEmail, setEnteredEmail] = useState("");
+  const [enteredPassword, setEnteredPassword] = useState("");
+  const [enteredFirstName, setEnteredFirstName] = useState("");
+  const [enteredLastName, setEnteredLastName] = useState("");
+
+  const enteredEmailChangeHandler = (event) => {
+    setEnteredEmail(event.target.value);
+  };
+
+  const enteredPasswordChangeHandler = (event) => {
+    setEnteredPassword(event.target.value);
+  };
+
+  const enteredFirstNameChangeHandler = (event) => {
+    setEnteredFirstName(event.target.value);
+  };
+
+  const enteredLastNameChangeHandler = (event) => {
+    setEnteredLastName(event.target.value);
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-neutral-700 text-neutral-700 dark:text-gray-100 transition-colors duration-300">
       <h1 className="text-3xl md:text-4xl text-center">
@@ -18,6 +41,8 @@ const SignUp = () => {
             name="firstName"
             type="text"
             required
+            value={enteredFirstName}
+            onChange={enteredFirstNameChangeHandler}
           />
 
           <label
@@ -32,6 +57,8 @@ const SignUp = () => {
             name="lastName"
             type="text"
             required
+            value={enteredLastName}
+            onChange={enteredLastNameChangeHandler}
           />
 
           <label
@@ -47,6 +74,8 @@ const SignUp = () => {
             type="email"
             autoComplete="email"
             required
+            value={enteredEmail}
+            onChange={enteredEmailChangeHandler}
           />
 
           <label
@@ -61,6 +90,8 @@ const SignUp = () => {
             name="password"
             type="password"
             required
+            value={enteredPassword}
+            onChange={enteredPasswordChangeHandler}
           />
 
           <button className="mt-4 w-full py-2 px-6 rounded-md font-medium text-center sm:text-lg border-0 bg-purple-400 dark:text-neutral-700 hover:text-gray-100 hover:bg-purple-800 dark:hover:text-gray-100 dark:bg-indigo-400 dark:hover:bg-indigo-800 ring-1 ring-purple-400 hover:ring-purple-800 dark:ring-indigo-400 dark:hover:ring-indigo-800 transition-all duration-300">
@@ -70,7 +101,7 @@ const SignUp = () => {
         <p className="text-neutral-700 dark:text-gray-100 mt-10 text-center sm:text-lg">
           Already a member?{" "}
           <a
-            to="#"
+            href="#"
             className="text-purple-400 hover:text-neutral-700 dark:text-indigo-400 dark:hover:text-gray-100 font-medium transition-all duration-300"
           >
             Log in here to continue
