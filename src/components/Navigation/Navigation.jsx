@@ -1,6 +1,19 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-const Navigation = () => {
+const Navigation = ({ setIsAuthenticated }) => {
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      setIsAuthenticated(false);
+      navigate("/");
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <nav className="bg-purple-800 dark:bg-indigo-800 transition-colors duration-300">
       <div className="flex items-center justify-end h-16 max-w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,6 +89,7 @@ const Navigation = () => {
                   <NavLink
                     to="/"
                     className="px-4 py-2 text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 block w-full text-left"
+                    onClick={logoutHandler}
                   >
                     Log Out
                   </NavLink>
