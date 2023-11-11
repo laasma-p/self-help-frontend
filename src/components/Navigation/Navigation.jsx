@@ -8,25 +8,41 @@ const Navigation = () => {
           <div className="ml-4 flex items-center space-x-4 h-full">
             <NavLink
               to="/"
-              className="text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+                  : "text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+              }
             >
               Dashboard
             </NavLink>
             <NavLink
               to="/problems"
-              className="text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+                  : "text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+              }
             >
               Problems
             </NavLink>
             <NavLink
               to="/therapy-goals"
-              className="text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+                  : "text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+              }
             >
               Therapy Goals
             </NavLink>
             <NavLink
               to="/physical-goals"
-              className="text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+                  : "text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+              }
             >
               Physical Goals
             </NavLink>
@@ -38,14 +54,22 @@ const Navigation = () => {
                 <div className="bg-purple-800 dark:bg-indigo-800 shadow-lg dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-100 w-48">
                   <NavLink
                     to="/boundaries"
-                    className="px-4 py-2 text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 block w-full text-left"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "px-4 py-2 text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block w-full text-left"
+                        : "px-4 py-2 text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 block w-full text-left"
+                    }
                   >
                     Boundaries
                   </NavLink>
 
                   <NavLink
                     to="/values"
-                    className="px-4 py-2 text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 block w-full text-left"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "px-4 py-2 text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block w-full text-left"
+                        : "px-4 py-2 text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 block w-full text-left"
+                    }
                   >
                     Values
                   </NavLink>
