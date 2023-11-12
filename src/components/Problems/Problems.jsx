@@ -1,4 +1,12 @@
+import { useState } from "react";
+
 const Problems = () => {
+  const [enteredProblem, setEnteredProblem] = useState("");
+
+  const enteredProblemChangeHandler = (event) => {
+    setEnteredProblem(event.target.value);
+  };
+
   return (
     <div className="min-h-screen pb-6 flex flex-col items-center bg-gray-100 dark:bg-neutral-700 text-neutral-700 dark:text-gray-100 transition-colors duration-300">
       <h1 className="text-3xl mt-8 mb-6 md:text-4xl text-center">Problems</h1>
@@ -14,6 +22,8 @@ const Problems = () => {
             type="text"
             id="problem"
             name="problem"
+            value={enteredProblem}
+            onChange={enteredProblemChangeHandler}
           />
           <button className="mt-4 mb-4 w-full py-2 px-6 rounded-md font-medium text-center sm:text-lg border-0 bg-purple-400 dark:text-neutral-700 hover:text-gray-100 hover:bg-purple-800 dark:hover:text-gray-100 dark:bg-indigo-400 dark:hover:bg-indigo-800 ring-1 ring-purple-400 hover:ring-purple-800 dark:ring-indigo-400 dark:hover:ring-indigo-800 transition-all duration-300 text-center">
             Add Problem
