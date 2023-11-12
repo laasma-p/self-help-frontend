@@ -136,77 +136,79 @@ const Navigation = ({ setIsAuthenticated }) => {
               </button>
             </div>
           </div>
-          <div className="md:hidden absolute top-16 left-0 right-0 bg-purple-800 dark:bg-indigo-800">
-            <div className="px-2 space-y-1 my-2 md:px-3">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
-                    : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-                }
-              >
-                Dashboard
-              </NavLink>
-              <NavLink
-                to="/problems"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
-                    : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-                }
-              >
-                Problems
-              </NavLink>
-              <NavLink
-                to="/therapy-goals"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
-                    : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-                }
-              >
-                Therapy Goals
-              </NavLink>
-              <NavLink
-                to="/physical-goals"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
-                    : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-                }
-              >
-                Physical Goals
-              </NavLink>
-              <NavLink
-                to="/values"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
-                    : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-                }
-              >
-                Values
-              </NavLink>
-              <NavLink
-                to="/boundaries"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
-                    : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-                }
-              >
-                Boundaries
-              </NavLink>
-              <NavLink
-                to="/"
-                className="text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
-                onClick={logoutHandler}
-              >
-                Log Out
-              </NavLink>
+          {isMenuOpen && (
+            <div className="md:hidden absolute top-16 left-0 right-0 bg-purple-800 dark:bg-indigo-800">
+              <div className="px-2 space-y-1 my-2 md:px-3">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
+                      : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+                <NavLink
+                  to="/problems"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
+                      : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+                  }
+                >
+                  Problems
+                </NavLink>
+                <NavLink
+                  to="/therapy-goals"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
+                      : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+                  }
+                >
+                  Therapy Goals
+                </NavLink>
+                <NavLink
+                  to="/physical-goals"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
+                      : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+                  }
+                >
+                  Physical Goals
+                </NavLink>
+                <NavLink
+                  to="/values"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
+                      : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+                  }
+                >
+                  Values
+                </NavLink>
+                <NavLink
+                  to="/boundaries"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
+                      : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+                  }
+                >
+                  Boundaries
+                </NavLink>
+                <NavLink
+                  to="/"
+                  className="text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+                  onClick={logoutHandler}
+                >
+                  Log Out
+                </NavLink>
+              </div>
             </div>
-          </div>
+          )}
         </nav>
       )}
     </>
