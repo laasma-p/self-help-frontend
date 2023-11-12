@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa";
 
 const Problems = ({ problems }) => {
   const [enteredProblem, setEnteredProblem] = useState("");
@@ -56,8 +57,14 @@ const Problems = ({ problems }) => {
         ) : (
           <ul>
             {problems.map((problem) => (
-              <li className="py-2 text-lg" key={problem.id}>
-                {problem.problem}
+              <li
+                className="flex items-center justify-between py-2 text-lg"
+                key={problem.id}
+              >
+                <span>{problem.problem}</span>
+                <button className="text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                  <FaTrash />
+                </button>
               </li>
             ))}
           </ul>
