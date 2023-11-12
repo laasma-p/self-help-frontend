@@ -11,6 +11,10 @@ const Navigation = ({ setIsAuthenticated }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const logoutHandler = () => {
     try {
       localStorage.removeItem("token");
@@ -141,6 +145,7 @@ const Navigation = ({ setIsAuthenticated }) => {
               <div className="px-2 space-y-1 my-2 md:px-3">
                 <NavLink
                   to="/"
+                  onClick={closeMenu}
                   className={({ isActive }) =>
                     isActive
                       ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
@@ -151,6 +156,7 @@ const Navigation = ({ setIsAuthenticated }) => {
                 </NavLink>
                 <NavLink
                   to="/problems"
+                  onClick={closeMenu}
                   className={({ isActive }) =>
                     isActive
                       ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
@@ -161,6 +167,7 @@ const Navigation = ({ setIsAuthenticated }) => {
                 </NavLink>
                 <NavLink
                   to="/therapy-goals"
+                  onClick={closeMenu}
                   className={({ isActive }) =>
                     isActive
                       ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
@@ -171,6 +178,7 @@ const Navigation = ({ setIsAuthenticated }) => {
                 </NavLink>
                 <NavLink
                   to="/physical-goals"
+                  onClick={closeMenu}
                   className={({ isActive }) =>
                     isActive
                       ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
@@ -181,6 +189,7 @@ const Navigation = ({ setIsAuthenticated }) => {
                 </NavLink>
                 <NavLink
                   to="/values"
+                  onClick={closeMenu}
                   className={({ isActive }) =>
                     isActive
                       ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
@@ -191,6 +200,7 @@ const Navigation = ({ setIsAuthenticated }) => {
                 </NavLink>
                 <NavLink
                   to="/boundaries"
+                  onClick={closeMenu}
                   className={({ isActive }) =>
                     isActive
                       ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
