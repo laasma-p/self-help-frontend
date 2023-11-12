@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Problems = () => {
+const Problems = ({ problems }) => {
   const [enteredProblem, setEnteredProblem] = useState("");
 
   const enteredProblemChangeHandler = (event) => {
@@ -31,14 +31,19 @@ const Problems = () => {
         </form>
       </div>
       <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 bg-purple-400 dark:bg-indigo-400 rounded-lg p-4 shadow-lg">
-        <ul>
-          <li className="py-2 text-lg">Problem 1</li>
-          <li className="py-2 text-lg">Problem 2</li>
-          <li className="py-2 text-lg">Problem 3</li>
-          <li className="py-2 text-lg">Problem 4</li>
-          <li className="py-2 text-lg">Problem 5</li>
-          <li className="py-2 text-lg">Problem 6</li>
-        </ul>
+        {problems.length === 0 ? (
+          <p className="py-2 text-lg">
+            No problems yet. Add some to get started?
+          </p>
+        ) : (
+          <ul>
+            {problems.map((problem) => (
+              <li className="py-2 text-lg" key={problem.id}>
+                {problem.problem}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
