@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
 import Hero from "./components/Hero/Hero";
 import SignUp from "./containers/SignUp/SignUp";
 import Login from "./containers/Login/Login";
@@ -9,10 +10,25 @@ import Problems from "./components/Problems/Problems";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [problems, setProblems] = useState([]);
 
   const handleLogin = (status) => {
     setIsAuthenticated(status);
   };
+
+  const fetchProblems = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/problems/");
+
+      setProblems(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchProblems();
+  }, []);
 
   return (
     <>
@@ -21,7 +37,10 @@ const App = () => {
       )}
       <Routes>
         <Route path="/" element={isAuthenticated ? <Dashboard /> : <Hero />} />
-        <Route path="/problems" element={isAuthenticated && <Problems />} />
+        <Route
+          path="/problems"
+          element={isAuthenticated && <Problems problems={problems} />}
+        />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
       </Routes>
