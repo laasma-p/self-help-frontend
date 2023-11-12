@@ -7,6 +7,7 @@ import Login from "./containers/Login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Navigation from "./components/Navigation/Navigation";
 import Problems from "./components/Problems/Problems";
+import TherapyGoals from "./components/TherapyGoals/TherapyGoals";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,6 +41,10 @@ const App = () => {
         <Route
           path="/problems"
           element={isAuthenticated && <Problems problems={problems} />}
+        />
+        <Route
+          path="/therapy-goals"
+          element={isAuthenticated && <TherapyGoals />}
         />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
