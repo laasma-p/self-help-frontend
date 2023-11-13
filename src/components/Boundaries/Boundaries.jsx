@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa";
 
 const Boundaries = ({ boundaries }) => {
   const [enteredBoundary, setEnteredBoundary] = useState("");
@@ -58,8 +59,14 @@ const Boundaries = ({ boundaries }) => {
             <>
               {boundaries.map((boundary) => {
                 return (
-                  <li className="py-2 text-lg" key={boundary.id}>
-                    {boundary.boundary}
+                  <li
+                    className="flex items-center justify-between py-2 text-lg"
+                    key={boundary.id}
+                  >
+                    <span>{boundary.boundary}</span>
+                    <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                      <FaTrash />
+                    </button>
                   </li>
                 );
               })}

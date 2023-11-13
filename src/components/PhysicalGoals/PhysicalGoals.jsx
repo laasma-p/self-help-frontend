@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa";
 
 const PhysicalGoals = ({ physicalGoals }) => {
   const [enteredPhysicalGoal, setEnteredPhysicalGoal] = useState("");
@@ -58,8 +59,14 @@ const PhysicalGoals = ({ physicalGoals }) => {
         ) : (
           <ul>
             {physicalGoals.map((physicalGoal) => (
-              <li className="py-2 text-lg" key={physicalGoal.id}>
-                {physicalGoal.physicalGoal}
+              <li
+                className="flex items-center justify-between py-2 text-lg"
+                key={physicalGoal.id}
+              >
+                <span>{physicalGoal.physicalGoal}</span>
+                <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                  <FaTrash />
+                </button>
               </li>
             ))}
           </ul>

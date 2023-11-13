@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa";
 
 const TherapyGoals = ({ therapyGoals }) => {
   const [enteredTherapyGoal, setEnteredTherapyGoal] = useState("");
@@ -58,8 +59,14 @@ const TherapyGoals = ({ therapyGoals }) => {
         ) : (
           <ul>
             {therapyGoals.map((therapyGoal) => (
-              <li className="py-2 text-lg" key={therapyGoal.id}>
-                {therapyGoal.therapyGoal}
+              <li
+                className="flex items-center justify-between py-2 text-lg"
+                key={therapyGoal.id}
+              >
+                <span>{therapyGoal.therapyGoal}</span>
+                <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                  <FaTrash />
+                </button>
               </li>
             ))}
           </ul>
