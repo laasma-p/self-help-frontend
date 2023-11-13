@@ -99,27 +99,55 @@ const App = () => {
         <Route path="/" element={isAuthenticated ? <Dashboard /> : <Hero />} />
         <Route
           path="/problems"
-          element={isAuthenticated && <Problems problems={problems} />}
+          element={
+            isAuthenticated && (
+              <Problems
+                problems={problems}
+                fetchUpdatedProblems={fetchProblems}
+              />
+            )
+          }
         />
         <Route
           path="/therapy-goals"
           element={
-            isAuthenticated && <TherapyGoals therapyGoals={therapyGoals} />
+            isAuthenticated && (
+              <TherapyGoals
+                therapyGoals={therapyGoals}
+                fetchUpdatedTherapyGoals={fetchTherapyGoals}
+              />
+            )
           }
         />
         <Route
           path="/physical-goals"
           element={
-            isAuthenticated && <PhysicalGoals physicalGoals={physicalGoals} />
+            isAuthenticated && (
+              <PhysicalGoals
+                physicalGoals={physicalGoals}
+                fetchUpdatedPhysicalGoals={fetchPhysicalGoals}
+              />
+            )
           }
         />
         <Route
           path="/values"
-          element={isAuthenticated && <Values values={values} />}
+          element={
+            isAuthenticated && (
+              <Values values={values} fetchUpdatedValues={fetchValues} />
+            )
+          }
         />
         <Route
           path="/boundaries"
-          element={isAuthenticated && <Boundaries boundaries={boundaries} />}
+          element={
+            isAuthenticated && (
+              <Boundaries
+                boundaries={boundaries}
+                fetchUpdatedBoundaries={fetchBoundaries}
+              />
+            )
+          }
         />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
