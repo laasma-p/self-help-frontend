@@ -20,6 +20,9 @@ const App = () => {
   const [values, setValues] = useState([]);
   const [boundaries, setBoundaries] = useState([]);
 
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
   const handleLogin = (status) => {
     setIsAuthenticated(status);
 
@@ -34,7 +37,19 @@ const App = () => {
 
   const fetchProblems = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/problems/");
+      if (!userId) {
+        console.error("User is not authenticated. Cannot fetch problems.");
+        return;
+      }
+
+      const response = await axios.get(
+        `http://localhost:3000/problems/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setProblems(response.data);
     } catch (error) {
@@ -44,7 +59,19 @@ const App = () => {
 
   const fetchTherapyGoals = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/therapy-goals/");
+      if (!userId) {
+        console.error("User is not authenticated. Cannot fetch therapy goals.");
+        return;
+      }
+
+      const response = await axios.get(
+        `http://localhost:3000/therapy-goals/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setTherapyGoals(response.data);
     } catch (error) {
@@ -54,7 +81,21 @@ const App = () => {
 
   const fetchPhysicalGoals = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/physical-goals/");
+      if (!userId) {
+        console.error(
+          "User is not authenticated. Cannot fetch physical goals."
+        );
+        return;
+      }
+
+      const response = await axios.get(
+        `http://localhost:3000/physical-goals/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setPhysicalGoals(response.data);
     } catch (error) {
@@ -64,7 +105,19 @@ const App = () => {
 
   const fetchValues = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/values/");
+      if (!userId) {
+        console.error("User is not authenticated. Cannot fetch values.");
+        return;
+      }
+
+      const response = await axios.get(
+        `http://localhost:3000/values/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setValues(response.data);
     } catch (error) {
@@ -74,7 +127,19 @@ const App = () => {
 
   const fetchBoundaries = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/boundaries/");
+      if (!userId) {
+        console.error("User is not authenticated. Cannot fetch boundaries.");
+        return;
+      }
+
+      const response = await axios.get(
+        `http://localhost:3000/boundaries/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setBoundaries(response.data);
     } catch (error) {
