@@ -8,6 +8,9 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Navigation from "./components/Navigation/Navigation";
 import Problems from "./components/Problems/Problems";
 import TherapyGoals from "./components/TherapyGoals/TherapyGoals";
+import PhysicalGoals from "./components/PhysicalGoals/PhysicalGoals";
+import Values from "./components/Values/Values";
+import Boundaries from "./components/Boundaries/Boundaries";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,6 +49,12 @@ const App = () => {
           path="/therapy-goals"
           element={isAuthenticated && <TherapyGoals />}
         />
+        <Route
+          path="/physical-goals"
+          element={isAuthenticated && <PhysicalGoals />}
+        />
+        <Route path="/values" element={isAuthenticated && <Values />} />
+        <Route path="/boundaries" element={isAuthenticated && <Boundaries />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
       </Routes>
