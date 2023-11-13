@@ -1,10 +1,28 @@
 import { useState } from "react";
+import axios from "axios";
 
 const PhysicalGoals = ({ physicalGoals }) => {
   const [enteredPhysicalGoal, setEnteredPhysicalGoal] = useState("");
 
   const enteredPhysicalGoalChangeHandler = (event) => {
     setEnteredPhysicalGoal(event.target.value);
+  };
+
+  const addPhysicalGoalHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/add-a-physical-goal/",
+        {
+          physicalGoal: enteredPhysicalGoal,
+        }
+      );
+
+      setEnteredPhysicalGoal("");
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
@@ -14,7 +32,7 @@ const PhysicalGoals = ({ physicalGoals }) => {
       </h1>
       <div className="w-4/12">
         <h2 className="text-lg">Add a physical goal</h2>
-        <form>
+        <form onSubmit={addPhysicalGoalHandler}>
           <label
             htmlFor="physicalGoal"
             className="block text-lg font-medium mb-2 mt-2"

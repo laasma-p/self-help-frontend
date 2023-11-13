@@ -1,10 +1,28 @@
 import { useState } from "react";
+import axios from "axios";
 
 const TherapyGoals = ({ therapyGoals }) => {
   const [enteredTherapyGoal, setEnteredTherapyGoal] = useState("");
 
   const enteredTherapyGoalChangeHandler = (event) => {
     setEnteredTherapyGoal(event.target.value);
+  };
+
+  const addTherapyGoalHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/add-a-therapy-goal/",
+        {
+          therapyGoal: enteredTherapyGoal,
+        }
+      );
+
+      setEnteredTherapyGoal("");
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
@@ -14,7 +32,7 @@ const TherapyGoals = ({ therapyGoals }) => {
       </h1>
       <div className="w-4/12">
         <h2 className="text-lg">Add a therapy goal</h2>
-        <form>
+        <form onSubmit={addTherapyGoalHandler}>
           <label
             htmlFor="therapyGoal"
             className="block text-lg font-medium mb-2 mt-2"
