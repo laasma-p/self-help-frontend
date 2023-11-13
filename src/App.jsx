@@ -22,6 +22,14 @@ const App = () => {
 
   const handleLogin = (status) => {
     setIsAuthenticated(status);
+
+    if (status) {
+      fetchProblems();
+      fetchTherapyGoals();
+      fetchPhysicalGoals();
+      fetchValues();
+      fetchBoundaries();
+    }
   };
 
   const fetchProblems = async () => {
