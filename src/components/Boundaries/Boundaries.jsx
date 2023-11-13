@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Boundaries = () => {
+const Boundaries = ({ boundaries }) => {
   const [enteredBoundary, setEnteredBoundary] = useState("");
 
   const enteredBoundaryChangeHandler = (event) => {
@@ -32,13 +32,21 @@ const Boundaries = () => {
       </div>
       <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 bg-purple-400 dark:bg-indigo-400 rounded-lg p-4 shadow-lg">
         <ul>
-          <li className="py-2 text-lg">Boundary 1</li>
-          <li className="py-2 text-lg">Boundary 2</li>
-          <li className="py-2 text-lg">Boundary 3</li>
-          <li className="py-2 text-lg">Boundary 4</li>
-          <li className="py-2 text-lg">Boundary 5</li>
-          <li className="py-2 text-lg">Boundary 6</li>
-          <li className="py-2 text-lg">Boundary 7</li>
+          {boundaries.length === 0 ? (
+            <li className="py-2 text-lg">
+              No boundaries yet. Add some to get started!
+            </li>
+          ) : (
+            <>
+              {boundaries.map((boundary) => {
+                return (
+                  <li className="py-2 text-lg" key={boundary.id}>
+                    {boundary.boundary}
+                  </li>
+                );
+              })}
+            </>
+          )}
         </ul>
       </div>
     </div>

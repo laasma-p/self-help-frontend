@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Values = () => {
+const Values = ({ values }) => {
   const [enteredValue, setEnteredValue] = useState("");
 
   const enteredValueChangeHandler = (event) => {
@@ -31,12 +31,19 @@ const Values = () => {
         </form>
       </div>
       <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 bg-purple-400 dark:bg-indigo-400 rounded-lg p-4 shadow-lg">
-        <ul>
-          <li className="py-2 text-lg">Value 1</li>
-          <li className="py-2 text-lg">Value 2</li>
-          <li className="py-2 text-lg">Value 3</li>
-          <li className="py-2 text-lg">Value 4</li>
-        </ul>
+        {values.length === 0 ? (
+          <p className="py-2 text-lg">
+            No values added yet. Add some to get started!
+          </p>
+        ) : (
+          <ul>
+            {values.map((value) => (
+              <li className="py-2 text-lg" key={value.id}>
+                {value.value}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

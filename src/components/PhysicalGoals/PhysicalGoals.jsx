@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const PhysicalGoals = () => {
+const PhysicalGoals = ({ physicalGoals }) => {
   const [enteredPhysicalGoal, setEnteredPhysicalGoal] = useState("");
 
   const enteredPhysicalGoalChangeHandler = (event) => {
@@ -33,12 +33,19 @@ const PhysicalGoals = () => {
         </form>
       </div>
       <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 bg-purple-400 dark:bg-indigo-400 rounded-lg p-4 shadow-lg">
-        <ul>
-          <li className="py-2 text-lg">Phys. Goal 1</li>
-          <li className="py-2 text-lg">Phys. Goal 2</li>
-          <li className="py-2 text-lg">Phys. Goal 3</li>
-          <li className="py-2 text-lg">Phys. Goal 4</li>
-        </ul>
+        {physicalGoals.length === 0 ? (
+          <p className="py-2 text-lg">
+            No physical goals yet. Add some to get started!
+          </p>
+        ) : (
+          <ul>
+            {physicalGoals.map((physicalGoal) => (
+              <li className="py-2 text-lg" key={physicalGoal.id}>
+                {physicalGoal.physicalGoal}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
