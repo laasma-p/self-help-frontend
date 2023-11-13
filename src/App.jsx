@@ -20,9 +20,6 @@ const App = () => {
   const [values, setValues] = useState([]);
   const [boundaries, setBoundaries] = useState([]);
 
-  const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
-
   const handleLogin = (status) => {
     setIsAuthenticated(status);
 
@@ -37,6 +34,9 @@ const App = () => {
 
   const fetchProblems = async () => {
     try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
       if (!userId) {
         console.error("User is not authenticated. Cannot fetch problems.");
         return;
@@ -59,6 +59,9 @@ const App = () => {
 
   const fetchTherapyGoals = async () => {
     try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
       if (!userId) {
         console.error("User is not authenticated. Cannot fetch therapy goals.");
         return;
@@ -81,6 +84,9 @@ const App = () => {
 
   const fetchPhysicalGoals = async () => {
     try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
       if (!userId) {
         console.error(
           "User is not authenticated. Cannot fetch physical goals."
@@ -105,6 +111,9 @@ const App = () => {
 
   const fetchValues = async () => {
     try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
       if (!userId) {
         console.error("User is not authenticated. Cannot fetch values.");
         return;
@@ -127,6 +136,9 @@ const App = () => {
 
   const fetchBoundaries = async () => {
     try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
       if (!userId) {
         console.error("User is not authenticated. Cannot fetch boundaries.");
         return;
@@ -148,11 +160,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchProblems();
-    fetchTherapyGoals();
-    fetchPhysicalGoals();
-    fetchValues();
-    fetchBoundaries();
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+
+    if (token && userId) {
+      setIsAuthenticated(true);
+      fetchProblems();
+      fetchTherapyGoals();
+      fetchPhysicalGoals();
+      fetchValues();
+      fetchBoundaries();
+    }
   }, []);
 
   return (
