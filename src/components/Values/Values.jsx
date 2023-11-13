@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const Values = ({ values }) => {
+const Values = ({ values, fetchUpdatedValues }) => {
   const [enteredValue, setEnteredValue] = useState("");
+  const navigate = useNavigate();
 
   const enteredValueChangeHandler = (event) => {
     setEnteredValue(event.target.value);
@@ -18,6 +20,8 @@ const Values = ({ values }) => {
       });
 
       setEnteredValue("");
+      fetchUpdatedValues();
+      navigate("/values");
     } catch (error) {
       console.error(error.message);
     }

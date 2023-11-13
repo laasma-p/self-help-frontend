@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const Problems = ({ problems }) => {
+const Problems = ({ problems, fetchUpdatedProblems }) => {
   const [enteredProblem, setEnteredProblem] = useState("");
+  const navigate = useNavigate();
 
   const enteredProblemChangeHandler = (event) => {
     setEnteredProblem(event.target.value);
@@ -21,6 +23,8 @@ const Problems = ({ problems }) => {
       );
 
       setEnteredProblem("");
+      fetchUpdatedProblems();
+      navigate("/problems");
     } catch (error) {
       console.error(error.message);
     }
@@ -62,7 +66,7 @@ const Problems = ({ problems }) => {
                 key={problem.id}
               >
                 <span>{problem.problem}</span>
-                <button className="text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
                   <FaTrash />
                 </button>
               </li>

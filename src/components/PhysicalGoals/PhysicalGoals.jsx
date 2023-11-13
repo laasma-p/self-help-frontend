@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const PhysicalGoals = ({ physicalGoals }) => {
+const PhysicalGoals = ({ physicalGoals, fetchUpdatedPhysicalGoals }) => {
   const [enteredPhysicalGoal, setEnteredPhysicalGoal] = useState("");
+  const navigate = useNavigate();
 
   const enteredPhysicalGoalChangeHandler = (event) => {
     setEnteredPhysicalGoal(event.target.value);
@@ -21,6 +23,8 @@ const PhysicalGoals = ({ physicalGoals }) => {
       );
 
       setEnteredPhysicalGoal("");
+      fetchUpdatedPhysicalGoals();
+      navigate("/physical-goals");
     } catch (error) {
       console.error(error.message);
     }

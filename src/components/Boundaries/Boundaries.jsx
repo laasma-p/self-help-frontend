@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const Boundaries = ({ boundaries }) => {
+const Boundaries = ({ boundaries, fetchUpdatedBoundaries }) => {
   const [enteredBoundary, setEnteredBoundary] = useState("");
+  const navigate = useNavigate();
 
   const enteredBoundaryChangeHandler = (event) => {
     setEnteredBoundary(event.target.value);
@@ -21,6 +23,8 @@ const Boundaries = ({ boundaries }) => {
       );
 
       setEnteredBoundary("");
+      fetchUpdatedBoundaries();
+      navigate("/boundaries");
     } catch (error) {
       console.error(error.message);
     }

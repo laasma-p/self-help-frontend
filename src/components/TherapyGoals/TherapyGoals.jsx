@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const TherapyGoals = ({ therapyGoals }) => {
+const TherapyGoals = ({ therapyGoals, fetchUpdatedTherapyGoals }) => {
   const [enteredTherapyGoal, setEnteredTherapyGoal] = useState("");
+  const navigate = useNavigate();
 
   const enteredTherapyGoalChangeHandler = (event) => {
     setEnteredTherapyGoal(event.target.value);
@@ -21,6 +23,8 @@ const TherapyGoals = ({ therapyGoals }) => {
       );
 
       setEnteredTherapyGoal("");
+      fetchUpdatedTherapyGoals();
+      navigate("/therapy-goals");
     } catch (error) {
       console.error(error.message);
     }
