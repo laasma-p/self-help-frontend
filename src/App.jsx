@@ -15,6 +15,10 @@ import Boundaries from "./components/Boundaries/Boundaries";
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [problems, setProblems] = useState([]);
+  const [therapyGoals, setTherapyGoals] = useState([]);
+  const [physicalGoals, setPhysicalGoals] = useState([]);
+  const [values, setValues] = useState([]);
+  const [boundaries, setBoundaries] = useState([]);
 
   const handleLogin = (status) => {
     setIsAuthenticated(status);
@@ -30,8 +34,52 @@ const App = () => {
     }
   };
 
+  const fetchTherapyGoals = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/therapy-goals/");
+
+      setTherapyGoals(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const fetchPhysicalGoals = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/physical-goals/");
+
+      setPhysicalGoals(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const fetchValues = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/values/");
+
+      setValues(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const fetchBoundaries = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/boundaries/");
+
+      setBoundaries(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     fetchProblems();
+    fetchTherapyGoals();
+    fetchPhysicalGoals();
+    fetchValues();
+    fetchBoundaries();
   }, []);
 
   return (
@@ -47,14 +95,24 @@ const App = () => {
         />
         <Route
           path="/therapy-goals"
-          element={isAuthenticated && <TherapyGoals />}
+          element={
+            isAuthenticated && <TherapyGoals therapyGoals={therapyGoals} />
+          }
         />
         <Route
           path="/physical-goals"
-          element={isAuthenticated && <PhysicalGoals />}
+          element={
+            isAuthenticated && <PhysicalGoals physicalGoals={physicalGoals} />
+          }
         />
-        <Route path="/values" element={isAuthenticated && <Values />} />
-        <Route path="/boundaries" element={isAuthenticated && <Boundaries />} />
+        <Route
+          path="/values"
+          element={isAuthenticated && <Values values={values} />}
+        />
+        <Route
+          path="/boundaries"
+          element={isAuthenticated && <Boundaries boundaries={boundaries} />}
+        />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
       </Routes>
