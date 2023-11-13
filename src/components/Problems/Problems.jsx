@@ -7,6 +7,12 @@ const Problems = ({ problems, fetchUpdatedProblems }) => {
   const [enteredProblem, setEnteredProblem] = useState("");
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   const enteredProblemChangeHandler = (event) => {
     setEnteredProblem(event.target.value);
   };
@@ -16,9 +22,12 @@ const Problems = ({ problems, fetchUpdatedProblems }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/add-a-problem/",
+        `http://localhost:3000/add-a-problem/${userId}`,
         {
           problem: enteredProblem,
+        },
+        {
+          headers,
         }
       );
 

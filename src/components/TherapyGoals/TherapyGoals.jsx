@@ -7,6 +7,12 @@ const TherapyGoals = ({ therapyGoals, fetchUpdatedTherapyGoals }) => {
   const [enteredTherapyGoal, setEnteredTherapyGoal] = useState("");
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   const enteredTherapyGoalChangeHandler = (event) => {
     setEnteredTherapyGoal(event.target.value);
   };
@@ -16,9 +22,12 @@ const TherapyGoals = ({ therapyGoals, fetchUpdatedTherapyGoals }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/add-a-therapy-goal/",
+        `http://localhost:3000/add-a-therapy-goal/${userId}`,
         {
           therapyGoal: enteredTherapyGoal,
+        },
+        {
+          headers,
         }
       );
 

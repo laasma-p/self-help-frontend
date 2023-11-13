@@ -7,6 +7,12 @@ const Values = ({ values, fetchUpdatedValues }) => {
   const [enteredValue, setEnteredValue] = useState("");
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   const enteredValueChangeHandler = (event) => {
     setEnteredValue(event.target.value);
   };
@@ -15,9 +21,15 @@ const Values = ({ values, fetchUpdatedValues }) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/add-a-value/", {
-        value: enteredValue,
-      });
+      const response = await axios.post(
+        `http://localhost:3000/add-a-value/${userId}`,
+        {
+          value: enteredValue,
+        },
+        {
+          headers,
+        }
+      );
 
       setEnteredValue("");
       fetchUpdatedValues();

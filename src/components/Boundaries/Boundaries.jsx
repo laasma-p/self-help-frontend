@@ -7,6 +7,12 @@ const Boundaries = ({ boundaries, fetchUpdatedBoundaries }) => {
   const [enteredBoundary, setEnteredBoundary] = useState("");
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   const enteredBoundaryChangeHandler = (event) => {
     setEnteredBoundary(event.target.value);
   };
@@ -16,9 +22,12 @@ const Boundaries = ({ boundaries, fetchUpdatedBoundaries }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/add-a-boundary/",
+        `http://localhost:3000/add-a-boundary/${userId}`,
         {
           boundary: enteredBoundary,
+        },
+        {
+          headers,
         }
       );
 

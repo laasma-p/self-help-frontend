@@ -7,6 +7,12 @@ const PhysicalGoals = ({ physicalGoals, fetchUpdatedPhysicalGoals }) => {
   const [enteredPhysicalGoal, setEnteredPhysicalGoal] = useState("");
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   const enteredPhysicalGoalChangeHandler = (event) => {
     setEnteredPhysicalGoal(event.target.value);
   };
@@ -16,9 +22,12 @@ const PhysicalGoals = ({ physicalGoals, fetchUpdatedPhysicalGoals }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/add-a-physical-goal/",
+        `http://localhost:3000/add-a-physical-goal/${userId}`,
         {
           physicalGoal: enteredPhysicalGoal,
+        },
+        {
+          headers,
         }
       );
 
