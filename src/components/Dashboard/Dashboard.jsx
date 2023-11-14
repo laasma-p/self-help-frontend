@@ -3,6 +3,7 @@ import axios from "axios";
 
 const Dashboard = () => {
   const [boundaryCounts, setBoundaryCounts] = useState({});
+  const [recentBoundaries, setRecentBoundaries] = useState([]);
 
   const fetchBoundaryCounts = async () => {
     const token = localStorage.getItem("token");
@@ -29,12 +30,40 @@ const Dashboard = () => {
     }
   };
 
+  const fetchRecentBoundaries = async () => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      console.error(
+        "User is not authenticated. Cannot fetch recent boundaries."
+      );
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/recent-boundaries/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setRecentBoundaries(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
     if (token && userId) {
       fetchBoundaryCounts();
+      fetchRecentBoundaries();
     }
   }, []);
 
@@ -59,6 +88,27 @@ const Dashboard = () => {
               for yourself.
             </p>
           </div>
+        </div>
+
+        <div className="w-full">
+          <h2 className="text-xl font-semibold mb-2 mt-4">
+            Recently Added Boundaries
+          </h2>
+          <ul>
+            {recentBoundaries.map((boundary) => (
+              <li
+                key={boundary.id}
+                className="mb-2 p-2 border border-purple-400 dark:border-indigo-400 rounded-md"
+              >
+                {boundary.boundary} (Added on{" "}
+                {new Date(boundary.date_added).toLocaleString(undefined, {
+                  month: "short",
+                  day: "numeric",
+                })}
+                )
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
