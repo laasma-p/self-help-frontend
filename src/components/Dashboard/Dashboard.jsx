@@ -55,7 +55,8 @@ const Dashboard = () => {
               <span className="font-bold">
                 {boundaryCounts.boundariesCount}
               </span>{" "}
-              boundaries for yourself.
+              {boundaryCounts.boundariesCount == 1 ? "boundary" : "boundaries"}{" "}
+              for yourself.
             </p>
           </div>
         </div>
