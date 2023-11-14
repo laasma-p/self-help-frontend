@@ -13,6 +13,18 @@ const Values = ({ values, fetchUpdatedValues }) => {
     Authorization: `Bearer ${token}`,
   };
 
+  const deleteValueHandler = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/values/${userId}/${id}`, {
+        headers,
+      });
+
+      fetchUpdatedValues();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const enteredValueChangeHandler = (event) => {
     setEnteredValue(event.target.value);
   };
@@ -75,7 +87,10 @@ const Values = ({ values, fetchUpdatedValues }) => {
                 key={value.id}
               >
                 <span>{value.value}</span>
-                <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                <button
+                  className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
+                  onClick={() => deleteValueHandler(value.id)}
+                >
                   <FaTrash />
                 </button>
               </li>

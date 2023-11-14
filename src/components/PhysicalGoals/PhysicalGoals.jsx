@@ -13,6 +13,21 @@ const PhysicalGoals = ({ physicalGoals, fetchUpdatedPhysicalGoals }) => {
     Authorization: `Bearer ${token}`,
   };
 
+  const deletePhysicalGoalHandler = async (id) => {
+    try {
+      await axios.delete(
+        `http://localhost:3000/physical-goals/${userId}/${id}`,
+        {
+          headers,
+        }
+      );
+
+      fetchUpdatedPhysicalGoals();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const enteredPhysicalGoalChangeHandler = (event) => {
     setEnteredPhysicalGoal(event.target.value);
   };
@@ -77,7 +92,10 @@ const PhysicalGoals = ({ physicalGoals, fetchUpdatedPhysicalGoals }) => {
                 key={physicalGoal.id}
               >
                 <span>{physicalGoal.physicalGoal}</span>
-                <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                <button
+                  className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
+                  onClick={() => deletePhysicalGoalHandler(physicalGoal.id)}
+                >
                   <FaTrash />
                 </button>
               </li>

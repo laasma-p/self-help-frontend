@@ -13,6 +13,21 @@ const TherapyGoals = ({ therapyGoals, fetchUpdatedTherapyGoals }) => {
     Authorization: `Bearer ${token}`,
   };
 
+  const deleteTherapyGoalHandler = async (id) => {
+    try {
+      await axios.delete(
+        `http://localhost:3000/therapy-goals/${userId}/${id}`,
+        {
+          headers,
+        }
+      );
+
+      fetchUpdatedTherapyGoals();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const enteredTherapyGoalChangeHandler = (event) => {
     setEnteredTherapyGoal(event.target.value);
   };
@@ -77,7 +92,10 @@ const TherapyGoals = ({ therapyGoals, fetchUpdatedTherapyGoals }) => {
                 key={therapyGoal.id}
               >
                 <span>{therapyGoal.therapyGoal}</span>
-                <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                <button
+                  className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
+                  onClick={() => deleteTherapyGoalHandler(therapyGoal.id)}
+                >
                   <FaTrash />
                 </button>
               </li>

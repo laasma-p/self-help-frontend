@@ -13,6 +13,18 @@ const Boundaries = ({ boundaries, fetchUpdatedBoundaries }) => {
     Authorization: `Bearer ${token}`,
   };
 
+  const deleteBoundaryHandler = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/boundaries/${userId}/${id}`, {
+        headers,
+      });
+
+      fetchUpdatedBoundaries();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const enteredBoundaryChangeHandler = (event) => {
     setEnteredBoundary(event.target.value);
   };
@@ -77,7 +89,10 @@ const Boundaries = ({ boundaries, fetchUpdatedBoundaries }) => {
                     key={boundary.id}
                   >
                     <span>{boundary.boundary}</span>
-                    <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                    <button
+                      className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
+                      onClick={() => deleteBoundaryHandler(boundary.id)}
+                    >
                       <FaTrash />
                     </button>
                   </li>

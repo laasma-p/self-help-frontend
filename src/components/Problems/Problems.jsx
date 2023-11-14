@@ -13,6 +13,18 @@ const Problems = ({ problems, fetchUpdatedProblems }) => {
     Authorization: `Bearer ${token}`,
   };
 
+  const deleteProblemHandler = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/problems/${userId}/${id}`, {
+        headers,
+      });
+
+      fetchUpdatedProblems();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const enteredProblemChangeHandler = (event) => {
     setEnteredProblem(event.target.value);
   };
@@ -75,7 +87,10 @@ const Problems = ({ problems, fetchUpdatedProblems }) => {
                 key={problem.id}
               >
                 <span>{problem.problem}</span>
-                <button className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300">
+                <button
+                  className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
+                  onClick={() => deleteProblemHandler(problem.id)}
+                >
                   <FaTrash />
                 </button>
               </li>
