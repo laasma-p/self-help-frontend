@@ -6,6 +6,7 @@ const Login = ({ onLogin }) => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const enteredEmailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -31,7 +32,21 @@ const Login = ({ onLogin }) => {
 
       navigate("/");
     } catch (error) {
-      console.error(error.message);
+      if (error.response) {
+        if (error.response.status === 404) {
+          setErrorMessage("User not registered. Sign up before continuing.");
+        } else if (error.response.status === 401) {
+          setErrorMessage("Incorrect password. Please try again.");
+        } else {
+          setErrorMessage("Something went wrong. Please try again later.");
+        }
+      } else if (error.request) {
+        console.error("No response received from the server");
+        setErrorMessage("Something went wrong. Please try again later.");
+      } else {
+        console.error("Error setting up the request");
+        setErrorMessage("Something went wrong. Please try again later.");
+      }
     }
   };
 
@@ -41,6 +56,9 @@ const Login = ({ onLogin }) => {
         Log in to your account
       </h1>
       <div className="mt-10 md:mx-auto md:w-full sm:max-w-sm">
+        {errorMessage && (
+          <p className="text-red-400 text-lg font-medium">{errorMessage}</p>
+        )}
         <form onSubmit={submitHandler}>
           <label
             htmlFor="email"
