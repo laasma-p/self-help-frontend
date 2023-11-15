@@ -7,6 +7,7 @@ const SignUp = () => {
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredLastName, setEnteredLastName] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const enteredEmailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -34,6 +35,12 @@ const SignUp = () => {
         firstName: enteredFirstName,
         lastName: enteredLastName,
       });
+
+      setIsRegistered(true);
+
+      setTimeout(() => {
+        setIsRegistered(false);
+      }, 3000);
     } catch (error) {
       console.error(error.message);
     }
@@ -45,6 +52,11 @@ const SignUp = () => {
         Sign up to get started
       </h1>
       <div className="mt-10 md:mx-auto md:w-full sm:max-w-sm">
+        {!isRegistered && (
+          <p className="text-green-400 text-lg font-medium">
+            User account successfully registered!
+          </p>
+        )}
         <form onSubmit={submitHandler}>
           <label
             htmlFor="firstName"
