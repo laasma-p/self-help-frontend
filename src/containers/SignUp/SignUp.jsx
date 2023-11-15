@@ -8,6 +8,7 @@ const SignUp = () => {
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredLastName, setEnteredLastName] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const enteredEmailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -42,7 +43,20 @@ const SignUp = () => {
         setIsRegistered(false);
       }, 3000);
     } catch (error) {
-      console.error(error.message);
+      if (error.response) {
+        if (error.response.status === 409) {
+          setErrorMessage("User with this email is already registered.");
+        } else {
+          console.error(error.response.data.message);
+          setErrorMessage("Something went wrong. Please try again later.");
+        }
+      } else if (error.request) {
+        console.error("No response received from the server");
+        setErrorMessage("Something went wrong. Please try again later.");
+      } else {
+        console.error("Error setting up the request", error.message);
+        setErrorMessage("Something went wrong. Please try again later.");
+      }
     }
   };
 
@@ -52,7 +66,10 @@ const SignUp = () => {
         Sign up to get started
       </h1>
       <div className="mt-10 md:mx-auto md:w-full sm:max-w-sm">
-        {!isRegistered && (
+        {errorMessage && (
+          <p className="text-red-400 text-lg font-medium">{errorMessage}</p>
+        )}
+        {isRegistered && (
           <p className="text-green-400 text-lg font-medium">
             User account successfully registered!
           </p>
