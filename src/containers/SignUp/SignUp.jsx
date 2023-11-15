@@ -54,7 +54,7 @@ const SignUp = () => {
         console.error("No response received from the server");
         setErrorMessage("Something went wrong. Please try again later.");
       } else {
-        console.error("Error setting up the request", error.message);
+        console.error("Error setting up the request");
         setErrorMessage("Something went wrong. Please try again later.");
       }
     }
