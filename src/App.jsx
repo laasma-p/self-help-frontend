@@ -12,6 +12,7 @@ import PhysicalGoals from "./components/PhysicalGoals/PhysicalGoals";
 import Values from "./components/Values/Values";
 import Boundaries from "./components/Boundaries/Boundaries";
 import Skills from "./components/Skills/Skills";
+import DiaryCard from "./containers/DiaryCard/DiaryCard";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -233,6 +234,7 @@ const App = () => {
             )
           }
         />
+        <Route path="/diary-cards" element={isAuthenticated && <DiaryCard />} />
         <Route path="/skills" element={isAuthenticated && <Skills />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
