@@ -21,6 +21,7 @@ const App = () => {
   const [physicalGoals, setPhysicalGoals] = useState([]);
   const [values, setValues] = useState([]);
   const [boundaries, setBoundaries] = useState([]);
+  const [diaryCards, setDiaryCards] = useState([]);
 
   const handleLogin = (status) => {
     setIsAuthenticated(status);
@@ -31,6 +32,7 @@ const App = () => {
       fetchPhysicalGoals();
       fetchValues();
       fetchBoundaries();
+      fetchDiaryCards();
     }
   };
 
@@ -161,6 +163,31 @@ const App = () => {
     }
   };
 
+  const fetchDiaryCards = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        console.error("User is not authenticated. Cannot fetch boundaries.");
+        return;
+      }
+
+      const response = await axios.get(
+        `http://localhost:3000/diary-cards/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setDiaryCards(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
@@ -172,6 +199,7 @@ const App = () => {
       fetchPhysicalGoals();
       fetchValues();
       fetchBoundaries();
+      fetchDiaryCards();
     }
   }, []);
 
@@ -234,7 +262,17 @@ const App = () => {
             )
           }
         />
-        <Route path="/diary-cards" element={isAuthenticated && <DiaryCard />} />
+        <Route
+          path="/diary-cards"
+          element={
+            isAuthenticated && (
+              <DiaryCard
+                diaryCards={diaryCards}
+                fetchUpdatedDiaryCards={fetchDiaryCards}
+              />
+            )
+          }
+        />
         <Route path="/skills" element={isAuthenticated && <Skills />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
