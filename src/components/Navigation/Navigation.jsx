@@ -110,6 +110,16 @@ const Navigation = ({ setIsAuthenticated }) => {
                         Skills
                       </NavLink>
                       <NavLink
+                        to="/diary-cards"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "px-4 py-2 text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block w-full text-left"
+                            : "px-4 py-2 text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 block w-full text-left"
+                        }
+                      >
+                        Diary Cards
+                      </NavLink>
+                      <NavLink
                         to="/"
                         className="px-4 py-2 text-gray-100 dark:text-gray-100 hover:bg-purple-400 dark:hover:bg-indigo-400 block w-full text-left"
                         onClick={logoutHandler}
@@ -229,6 +239,17 @@ const Navigation = ({ setIsAuthenticated }) => {
                   }
                 >
                   Skills
+                </NavLink>
+                <NavLink
+                  to="/diary-cards"
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-gray-100 dark:text-gray-100 bg-purple-400 dark:bg-indigo-400 block px-3 py-2 rounded-md text-base font-medium"
+                      : "text-gray-100 dark:text-gray-100 block px-3 py-2 rounded-md text-base font-medium"
+                  }
+                >
+                  Diary Cards
                 </NavLink>
                 <NavLink
                   to="/"
