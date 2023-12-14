@@ -1,6 +1,8 @@
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const DiaryCard = ({ diaryCards }) => {
+const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
   const [openDiaryCard, setOpenDiaryCard] = useState(false);
   const [diaryCard, setDiaryCard] = useState({
     date: "",
@@ -10,6 +12,14 @@ const DiaryCard = ({ diaryCards }) => {
     skills: "",
     comments: "",
   });
+
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
   const openDiaryCardHandler = () => {
     setOpenDiaryCard(true);
@@ -31,6 +41,38 @@ const DiaryCard = ({ diaryCards }) => {
     return formattedDate;
   };
 
+  const addDiaryCardHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/add-a-diary-card/${userId}`,
+        {
+          diaryCard,
+        },
+        {
+          headers,
+        }
+      );
+
+      setOpenDiaryCard(false);
+
+      setDiaryCard({
+        date: "",
+        suicidalIdeation: "",
+        exercise: "",
+        selfCare: "",
+        skills: "",
+        comments: "",
+      });
+
+      fetchUpdatedDiaryCards();
+      navigate("/diary-cards");
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <div className="min-h-screen pb-6 flex flex-col items-center bg-gray-100 dark:bg-neutral-700 text-neutral-700 dark:text-gray-100 transition-colors duration-300">
       <h1 className="text-3xl mt-8 mb-6 md:text-4xl text-center">
@@ -39,7 +81,7 @@ const DiaryCard = ({ diaryCards }) => {
       <>
         {openDiaryCard ? (
           <div className="w-4/12">
-            <form>
+            <form onSubmit={addDiaryCardHandler}>
               <label htmlFor="date" className="block text-lg font-medium mb-2">
                 Date
               </label>
