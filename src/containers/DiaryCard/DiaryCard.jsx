@@ -1,4 +1,22 @@
+import { useState } from "react";
+
 const DiaryCard = () => {
+  const [diaryCard, setDiaryCard] = useState({
+    date: "",
+    suicidalIdeation: "",
+    exercise: "",
+    selfCare: "",
+    skills: "",
+    comments: "",
+  });
+
+  const handleFieldChange = (field, value) => {
+    setDiaryCard((prevDiaryCard) => ({
+      ...prevDiaryCard,
+      [field]: value,
+    }));
+  };
+
   return (
     <div className="min-h-screen pb-6 flex flex-col items-center bg-gray-100 dark:bg-neutral-700 text-neutral-700 dark:text-gray-100 transition-colors duration-300">
       <h1 className="text-3xl mt-8 mb-6 md:text-4xl text-center">
@@ -14,6 +32,8 @@ const DiaryCard = () => {
             type="date"
             id="date"
             name="date"
+            value={diaryCard.date}
+            onChange={(event) => handleFieldChange("date", event.target.value)}
           />
           <label
             htmlFor="suicidalIdeation"
@@ -26,6 +46,10 @@ const DiaryCard = () => {
             type="text"
             id="suicidalIdeation"
             name="suicidalIdeation"
+            value={diaryCard.suicidalIdeation}
+            onChange={(event) =>
+              handleFieldChange("suicidalIdeation", event.target.value)
+            }
           />
           <label
             htmlFor="exercise"
@@ -38,6 +62,10 @@ const DiaryCard = () => {
             type="text"
             id="exercise"
             name="exercise"
+            value={diaryCard.exercise}
+            onChange={(event) =>
+              handleFieldChange("exercise", event.target.value)
+            }
           />
           <label
             htmlFor="selfCare"
@@ -50,6 +78,10 @@ const DiaryCard = () => {
             type="text"
             id="selfCare"
             name="selfCare"
+            value={diaryCard.selfCare}
+            onChange={(event) =>
+              handleFieldChange("selfCare", event.target.value)
+            }
           />
           <label
             htmlFor="skills"
@@ -62,6 +94,10 @@ const DiaryCard = () => {
             type="text"
             id="skills"
             name="skills"
+            value={diaryCard.skill}
+            onChange={(event) =>
+              handleFieldChange("skills", event.target.value)
+            }
           />
           <label
             htmlFor="comments"
@@ -74,6 +110,10 @@ const DiaryCard = () => {
             type="text"
             id="comments"
             name="comments"
+            value={diaryCard.comments}
+            onChange={(event) =>
+              handleFieldChange("comments", event.target.value)
+            }
           />
           <button className="mt-4 mb-4 w-full py-2 px-6 rounded-md font-medium text-center sm:text-lg border-0 bg-purple-400 dark:text-neutral-700 hover:text-gray-100 hover:bg-purple-800 dark:hover:text-gray-100 dark:bg-indigo-400 dark:hover:bg-indigo-800 ring-1 ring-purple-400 hover:ring-purple-800 dark:ring-indigo-400 dark:hover:ring-indigo-800 transition-all duration-300 text-center">
             Save
