@@ -22,6 +22,15 @@ const DiaryCard = ({ diaryCards }) => {
     }));
   };
 
+  const formatDate = (isoDate) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    const formattedDate = new Date(isoDate).toLocaleDateString(
+      undefined,
+      options
+    );
+    return formattedDate;
+  };
+
   return (
     <div className="min-h-screen pb-6 flex flex-col items-center bg-gray-100 dark:bg-neutral-700 text-neutral-700 dark:text-gray-100 transition-colors duration-300">
       <h1 className="text-3xl mt-8 mb-6 md:text-4xl text-center">
@@ -157,7 +166,7 @@ const DiaryCard = ({ diaryCards }) => {
               >
                 <div className="w-full sm:w-1/2 flex flex-col p-0 sm:p-2">
                   <span className="font-medium">Date</span>
-                  {diaryCard.date}
+                  {formatDate(diaryCard.date)}
                   <span className="font-medium">Suicidal Ideation</span>
                   {diaryCard.suicidal_ideation}
                   <span className="font-medium">Exercise Done</span>
