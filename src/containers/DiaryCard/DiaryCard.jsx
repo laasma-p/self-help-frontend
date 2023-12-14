@@ -103,7 +103,7 @@ const DiaryCard = () => {
                 type="text"
                 id="skills"
                 name="skills"
-                value={diaryCard.skill}
+                value={diaryCard.skills}
                 onChange={(event) =>
                   handleFieldChange("skills", event.target.value)
                 }
