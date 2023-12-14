@@ -81,19 +81,19 @@ const PhysicalGoals = ({ physicalGoals, fetchUpdatedPhysicalGoals }) => {
       </div>
       <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 bg-purple-400 dark:bg-indigo-400 rounded-lg p-4 shadow-lg">
         {physicalGoals.length === 0 ? (
-          <p className="py-2 text-lg">
+          <p className="py-2 text-md md:text-lg">
             No physical goals yet. Add some to get started!
           </p>
         ) : (
           <ul>
             {physicalGoals.map((physicalGoal) => (
               <li
-                className="flex items-center justify-between py-2 text-lg"
+                className="flex items-center justify-between py-2 text-md md:text-lg"
                 key={physicalGoal.id}
               >
                 <span>{physicalGoal.physicalGoal}</span>
                 <button
-                  className="ml-2 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
+                  className="ml-6 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
                   onClick={() => deletePhysicalGoalHandler(physicalGoal.id)}
                 >
                   <FaTrash />
