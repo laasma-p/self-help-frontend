@@ -25,6 +25,22 @@ const Problems = ({ problems, fetchUpdatedProblems }) => {
     }
   };
 
+  const strikeoutProblemHandler = async (id, isDone) => {
+    try {
+      await axios.put(
+        `http://localhost:3000/update-problem/${userId}/${id}`,
+        { isDone: true },
+        {
+          headers,
+        }
+      );
+
+      fetchUpdatedProblems();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const enteredProblemChangeHandler = (event) => {
     setEnteredProblem(event.target.value);
   };
@@ -86,7 +102,18 @@ const Problems = ({ problems, fetchUpdatedProblems }) => {
                 className="flex items-center justify-between py-2 text-md md:text-lg"
                 key={problem.id}
               >
-                <span>{problem.problem}</span>
+                <span
+                  onClick={() => {
+                    if (!problem.isDone) {
+                      strikeoutProblemHandler(problem.id, problem.isDone);
+                    }
+                  }}
+                  className={`hover:cursor-pointer ${
+                    problem.isDone ? "line-through" : ""
+                  }`}
+                >
+                  {problem.problem}
+                </span>
                 <button
                   className="ml-6 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
                   onClick={() => deleteProblemHandler(problem.id)}
