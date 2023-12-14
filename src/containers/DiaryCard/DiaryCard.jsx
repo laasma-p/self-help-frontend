@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const DiaryCard = () => {
+const DiaryCard = ({ diaryCards }) => {
   const [openDiaryCard, setOpenDiaryCard] = useState(false);
   const [diaryCard, setDiaryCard] = useState({
     date: "",
@@ -138,6 +138,44 @@ const DiaryCard = () => {
           </button>
         )}
       </>
+      {diaryCards.length === 0 ? (
+        <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 bg-purple-400 dark:bg-indigo-400 rounded-lg p-4 shadow-lg">
+          <p className="py-2 text-md md:text-lg">
+            You have not added any diary cards as of now. Fill out the first
+            one!
+          </p>
+        </div>
+      ) : (
+        <>
+          {diaryCards
+            .slice()
+            .reverse()
+            .map((diaryCard) => (
+              <div
+                className="w-8/12 md:w-7/12 lg:w-6/12 flex flex-col sm:flex-row justify-center align-center bg-purple-400 dark:bg-indigo-400 rounded-lg p-6 sm:p-4 shadow-lg m-2 break-all text-md md:text-lg"
+                key={diaryCard.id}
+              >
+                <div className="w-full sm:w-1/2 flex flex-col p-0 sm:p-2">
+                  <span className="font-medium">Date</span>
+                  {diaryCard.date}
+                  <span className="font-medium">Suicidal Ideation</span>
+                  {diaryCard.suicidal_ideation}
+                  <span className="font-medium">Exercise Done</span>
+                  {diaryCard.exercise}
+                </div>
+
+                <div className="w-full sm:w-1/2 flex flex-col p-0 sm:p-2">
+                  <span className="font-medium">Self Care Activities</span>
+                  {diaryCard.self_care}
+                  <span className="font-medium">Skills Used</span>
+                  {diaryCard.skills}
+                  <span className="font-medium">Additional Comments</span>
+                  {diaryCard.comments}
+                </div>
+              </div>
+            ))}
+        </>
+      )}
     </div>
   );
 };
