@@ -28,6 +28,22 @@ const TherapyGoals = ({ therapyGoals, fetchUpdatedTherapyGoals }) => {
     }
   };
 
+  const strikeoutTherapyGoalHandler = async (id, isDone) => {
+    try {
+      await axios.put(
+        `http://localhost:3000/update-therapy-goal/${userId}/${id}`,
+        { isDone: true },
+        {
+          headers,
+        }
+      );
+
+      fetchUpdatedTherapyGoals();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const enteredTherapyGoalChangeHandler = (event) => {
     setEnteredTherapyGoal(event.target.value);
   };
@@ -91,7 +107,21 @@ const TherapyGoals = ({ therapyGoals, fetchUpdatedTherapyGoals }) => {
                 className="flex items-center justify-between py-2 text-md md:text-lg"
                 key={therapyGoal.id}
               >
-                <span>{therapyGoal.therapyGoal}</span>
+                <span
+                  onClick={() => {
+                    if (!therapyGoal.isDone) {
+                      strikeoutTherapyGoalHandler(
+                        therapyGoal.id,
+                        therapyGoal.isDone
+                      );
+                    }
+                  }}
+                  className={`hover:cursor-pointer ${
+                    therapyGoal.isDone ? "line-through" : ""
+                  }`}
+                >
+                  {therapyGoal.therapyGoal}
+                </span>
                 <button
                   className="ml-6 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
                   onClick={() => deleteTherapyGoalHandler(therapyGoal.id)}
