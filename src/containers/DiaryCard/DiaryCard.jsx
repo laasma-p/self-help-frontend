@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
   const [openDiaryCard, setOpenDiaryCard] = useState(false);
+  const [hasDiaryCardForToday, setHasDiaryCardForToday] = useState(false);
   const [diaryCard, setDiaryCard] = useState({
     date: "",
     suicidalIdeation: "",
@@ -31,6 +32,25 @@ const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
       [field]: value,
     }));
   };
+
+  useEffect(() => {
+    const checkDiaryCardForToday = async () => {
+      try {
+        const today = new Date().toISOString().split("T")[0];
+        const response = await axios.get(
+          `http://localhost:3000/check-diary-card-date/${userId}/${today}`,
+          {
+            headers,
+          }
+        );
+        setHasDiaryCardForToday(response.data.hasDiaryCardForToday);
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    checkDiaryCardForToday();
+  }, [userId, headers]);
 
   const formatDate = (isoDate) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -181,12 +201,22 @@ const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
             </form>
           </div>
         ) : (
-          <button
-            onClick={openDiaryCardHandler}
-            className="mt-4 mb-4 w-4/12 py-2 px-6 rounded-md font-medium text-center sm:text-lg border-0 bg-purple-400 dark:text-neutral-700 hover:text-gray-100 hover:bg-purple-800 dark:hover:text-gray-100 dark:bg-indigo-400 dark:hover:bg-indigo-800 ring-1 ring-purple-400 hover:ring-purple-800 dark:ring-indigo-400 dark:hover:ring-indigo-800 transition-all duration-300 text-center"
-          >
-            Add A New Diary Card
-          </button>
+          <>
+            {hasDiaryCardForToday ? (
+              <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 text-center bg-red-400 rounded-lg p-2 shadow-lg">
+                <p className="text-lg font-medium mb-2 mt-2 text-neutral-700 dark:text-gray-100">
+                  You have already added a diary card for today.
+                </p>
+              </div>
+            ) : (
+              <button
+                onClick={openDiaryCardHandler}
+                className="mt-4 mb-4 w-4/12 py-2 px-6 rounded-md font-medium text-center sm:text-lg border-0 bg-purple-400 dark:text-neutral-700 hover:text-gray-100 hover:bg-purple-800 dark:hover:text-gray-100 dark:bg-indigo-400 dark:hover:bg-indigo-800 ring-1 ring-purple-400 hover:ring-purple-800 dark:ring-indigo-400 dark:hover:ring-indigo-800 transition-all duration-300 text-center"
+              >
+                Add A New Diary Card
+              </button>
+            )}
+          </>
         )}
       </>
       {diaryCards.length === 0 ? (
