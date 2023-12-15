@@ -28,6 +28,22 @@ const PhysicalGoals = ({ physicalGoals, fetchUpdatedPhysicalGoals }) => {
     }
   };
 
+  const strikeoutPhysicalGoalHandler = async (id, isDone) => {
+    try {
+      await axios.put(
+        `http://localhost:3000/update-physical-goal/${userId}/${id}`,
+        { isDone: true },
+        {
+          headers,
+        }
+      );
+
+      fetchUpdatedPhysicalGoals();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const enteredPhysicalGoalChangeHandler = (event) => {
     setEnteredPhysicalGoal(event.target.value);
   };
@@ -91,7 +107,21 @@ const PhysicalGoals = ({ physicalGoals, fetchUpdatedPhysicalGoals }) => {
                 className="flex items-center justify-between py-2 text-md md:text-lg"
                 key={physicalGoal.id}
               >
-                <span>{physicalGoal.physicalGoal}</span>
+                <span
+                  onClick={() => {
+                    if (!physicalGoal.isDone) {
+                      strikeoutPhysicalGoalHandler(
+                        physicalGoal.id,
+                        physicalGoal.isDone
+                      );
+                    }
+                  }}
+                  className={`hover:cursor-pointer ${
+                    physicalGoal.isDone ? "line-through" : ""
+                  }`}
+                >
+                  {physicalGoal.physicalGoal}
+                </span>
                 <button
                   className="ml-6 text-purple-800 dark:text-indigo-800 hover:text-gray-100 dark:hover:text-gray-100 transition-all duration-300"
                   onClick={() => deletePhysicalGoalHandler(physicalGoal.id)}
