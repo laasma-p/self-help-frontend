@@ -83,7 +83,7 @@ const TherapyGoals = ({ therapyGoals, fetchUpdatedTherapyGoals }) => {
             className="block text-lg font-medium mb-2 mt-2"
           />
           <input
-            className="w-full mt-2 sm:text-sm text-neutral-700 dark:text-neutral-700 block rounded-md border-0 px-2 py-1.5 sm:leading-6 shadow-sm ring-1 ring-purple-400 focus:outline-purple-800 dark:ring-indigo-400 dark:focus:outline-indigo-800 dark:outline-none"
+            className="w-full py-1.5 px-2 text-neutral-700 dark:text-neutral-700 block rounded-md ring-1 ring-purple-400 focus:outline-purple-800 dark:ring-indigo-400 dark:focus:outline-indigo-800"
             type="text"
             id="therapyGoal"
             name="therapyGoal"
