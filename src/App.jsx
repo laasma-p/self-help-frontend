@@ -23,6 +23,24 @@ const App = () => {
   const [boundaries, setBoundaries] = useState([]);
   const [diaryCards, setDiaryCards] = useState([]);
 
+  const fetchUserData = async () => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+
+    if (token && userId) {
+      setIsAuthenticated(true);
+
+      await Promise.all([
+        fetchProblems(),
+        fetchTherapyGoals(),
+        fetchPhysicalGoals(),
+        fetchValues(),
+        fetchBoundaries(),
+        fetchDiaryCards(),
+      ]);
+    }
+  };
+
   const handleLogin = (status) => {
     setIsAuthenticated(status);
 
@@ -189,18 +207,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
-
-    if (token && userId) {
-      setIsAuthenticated(true);
-      fetchProblems();
-      fetchTherapyGoals();
-      fetchPhysicalGoals();
-      fetchValues();
-      fetchBoundaries();
-      fetchDiaryCards();
-    }
+    fetchUserData();
   }, []);
 
   return (
