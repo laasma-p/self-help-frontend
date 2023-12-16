@@ -93,12 +93,24 @@ const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
     }
   };
 
+  const deleteDiaryCardHandler = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/diary-cards/${userId}/${id}`, {
+        headers,
+      });
+
+      fetchUpdatedDiaryCards();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
-    <div className="min-h-screen pb-6 flex flex-col items-center bg-gray-100 dark:bg-neutral-700 text-neutral-700 dark:text-gray-100 transition-colors duration-300">
-      <h1 className="text-3xl mt-8 mb-6 md:text-4xl text-center">
+    <div className="min-h-screen pb-6 bg-gray-100 dark:bg-neutral-700 text-neutral-700 dark:text-gray-100 transition-colors duration-300">
+      <h1 className="text-3xl pt-8 pb-6 md:text-4xl text-center">
         Diary Cards
       </h1>
-      <>
+      <div className="flex justify-center">
         {openDiaryCard ? (
           <div className="w-4/12">
             <form onSubmit={addDiaryCardHandler}>
@@ -203,7 +215,7 @@ const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
         ) : (
           <>
             {hasDiaryCardForToday ? (
-              <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 text-center bg-red-400 rounded-lg p-2 shadow-lg">
+              <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 text-center bg-red-400 rounded-lg p-2 mb-4 shadow-lg">
                 <p className="text-lg font-medium mb-2 mt-2 text-neutral-700 dark:text-gray-100">
                   You have already added a diary card for today.
                 </p>
@@ -218,25 +230,23 @@ const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
             )}
           </>
         )}
-      </>
+      </div>
       {diaryCards.length === 0 ? (
-        <div className="w-8/12 sm:w-6/12 lg:w-5/12 xl:w-4/12 bg-purple-400 dark:bg-indigo-400 rounded-lg p-4 shadow-lg">
+        <div className="w-8/12 m-auto sm:w-6/12 lg:w-5/12 xl:w-4/12 bg-purple-400 dark:bg-indigo-400 rounded-lg p-4 shadow-lg">
           <p className="py-2 text-md md:text-lg">
             You have not added any diary cards as of now. Fill out the first
             one!
           </p>
         </div>
       ) : (
-        <>
-          {diaryCards
-            .slice()
-            .reverse()
-            .map((diaryCard) => (
-              <div
-                className="w-8/12 md:w-7/12 lg:w-6/12 flex flex-col sm:flex-row justify-center align-center bg-purple-400 dark:bg-indigo-400 rounded-lg p-6 sm:p-4 shadow-lg m-2 break-all text-md md:text-lg"
-                key={diaryCard.id}
-              >
-                <div className="w-full sm:w-1/2 flex flex-col p-0 sm:p-2">
+        <div className="sm:w-9/12 md:w-8/12 lg:max-w-6/12 w-full flex-col justify-center m-auto">
+          {diaryCards.map((diaryCard) => (
+            <div
+              className="bg-purple-400 dark:bg-indigo-400 rounded-lg text-md md:text-lg p-6 sm:p-4 shadow-lg m-2"
+              key={diaryCard.id}
+            >
+              <div className="flex text-center sm:text-left m-auto justify-center align-center flex-col sm:flex-row">
+                <div className="w-full sm:w-1/2 flex flex-col m-auto p-0 sm:p-2 break-words">
                   <span className="font-medium">Date</span>
                   {formatDate(diaryCard.date)}
                   <span className="font-medium">Suicidal Ideation</span>
@@ -245,7 +255,7 @@ const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
                   {diaryCard.exercise}
                 </div>
 
-                <div className="w-full sm:w-1/2 flex flex-col p-0 sm:p-2">
+                <div className="w-full sm:w-1/2 flex flex-col p-0 sm:p-2 m-auto break-words">
                   <span className="font-medium">Self Care Activities</span>
                   {diaryCard.self_care}
                   <span className="font-medium">Skills Used</span>
@@ -254,8 +264,15 @@ const DiaryCard = ({ diaryCards, fetchUpdatedDiaryCards }) => {
                   {diaryCard.comments}
                 </div>
               </div>
-            ))}
-        </>
+              <button
+                className="w-full mt-4 w-4/12 py-2 px-6 rounded-md font-medium text-center sm:text-lg border-0 bg-red-400 dark:text-neutral-700 hover:text-gray-100 hover:bg-red-800 dark:hover:text-gray-100 ring-1 ring-red-400 hover:ring-red-800 transition-all duration-300"
+                onClick={() => deleteDiaryCardHandler(diaryCard.id)}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
